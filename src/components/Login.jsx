@@ -3,10 +3,45 @@ import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
+import Snackbar from "@mui/material/Snackbar";
+import React from "react";
+import IconButton from "@mui/material/IconButton";
+import MuiAlert from "@mui/material/Alert";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <Button color="secondary" size="small" onClick={handleClose}>
+        UNDO
+      </Button>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      ></IconButton>
+    </React.Fragment>
+  );
   return (
     <center>
       <div>
@@ -66,14 +101,35 @@ function Login() {
                     password: password,
                   },
                 })
-                  .then((res) => res.json())
+                  .then((res) => {
+                    if (res.status == 400) {
+                      return handleClick();
+                    } else {
+                      return res.json();
+                    }
+                  })
                   .then((data) => {
-                    localStorage.setItem("token", data.token);
+                    if (data) {
+                      localStorage.setItem("token", data.token);
+                      window.location = "/";
+                    }
+                  })
+                  .catch((err) => {
+                    console.log(err);
                   });
               }}
             >
               Log in
             </Button>
+            <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+              <Alert
+                onClose={handleClose}
+                severity="error"
+                sx={{ width: "100%" }}
+              >
+                Wrong Credentials!
+              </Alert>
+            </Snackbar>
           </div>
         </Card>
       </div>
