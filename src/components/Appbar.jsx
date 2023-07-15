@@ -4,10 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import CircularProgress from "@mui/material/CircularProgress";
+import userState from "../recoil/UserState";
+import { useRecoilState } from "recoil";
 
 function Appbar() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState(null);
+  const [username, setUsername] = useRecoilState(userState);
 
   useEffect(() => {
     axios
@@ -148,7 +150,8 @@ function Appbar() {
           }}
           onClick={() => {
             localStorage.setItem("token", null);
-            window.location = "/login";
+            navigate("/login");
+            setUsername("");
           }}
         >
           Logout

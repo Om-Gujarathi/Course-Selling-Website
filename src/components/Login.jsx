@@ -6,6 +6,9 @@ import { useState } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import React from "react";
 import MuiAlert from "@mui/material/Alert";
+import { useSetRecoilState } from "recoil";
+import userState from "../recoil/UserState";
+import { useNavigate } from "react-router-dom";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -14,7 +17,9 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const setUsername = useSetRecoilState(userState);
+  const navigate = useNavigate();
 
   const handleClick = () => {
     setOpen(true);
@@ -96,8 +101,9 @@ function Login() {
                   })
                   .then((data) => {
                     if (data) {
+                      navigate("/");
                       localStorage.setItem("token", data.token);
-                      window.location = "/";
+                      setUsername(email);
                     }
                   })
                   .catch((err) => {

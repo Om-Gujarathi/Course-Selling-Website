@@ -4,6 +4,8 @@ import Login from "./components/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Courses from "./components/Courses";
 import AddCourse from "./components/AddCourse";
+import { RecoilRoot } from "recoil";
+import EditCourse from "./components/EditCourse";
 
 function App() {
   return (
@@ -14,15 +16,18 @@ function App() {
         background: "#eeeeee",
       }}
     >
-      <BrowserRouter>
-        <Appbar></Appbar>
-        <Routes>
-          <Route path="/signup" element={<SignUp />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/courses" element={<Courses />}></Route>
-          <Route path="/addcourse" element={<AddCourse />}></Route>
-        </Routes>
-      </BrowserRouter>
+      <RecoilRoot>
+        <BrowserRouter>
+          <Appbar></Appbar>
+          <Routes>
+            <Route path="/signup" element={<SignUp />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="/courses" element={<Courses />}></Route>
+            <Route path="/addcourse" element={<AddCourse />}></Route>
+            <Route path="/courses/:courseId" element={<EditCourse />}></Route>
+          </Routes>
+        </BrowserRouter>
+      </RecoilRoot>
     </div>
   );
 }

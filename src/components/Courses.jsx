@@ -5,6 +5,7 @@ import { Card } from "@mui/material";
 import { CardActionArea } from "@mui/material";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
+import { useNavigate } from "react-router-dom";
 
 function Courses() {
   const [courses, setCourses] = useState([]);
@@ -38,9 +39,15 @@ function Courses() {
 }
 
 function CourseCard(props) {
+  const navigate = useNavigate();
+  
   return (
     <Card sx={{ minWidth: 300, margin: 5 }}>
-      <CardActionArea onClick={() => {}}>
+      <CardActionArea
+        onClick={() => {
+          navigate(`/courses/${props.course._id}`);
+        }}
+      >
         <CardMedia
           component="img"
           sx={{ height: 250, maxWidth: 300 }}
