@@ -38,26 +38,26 @@ function Courses() {
   );
 }
 
-function CourseCard(props) {
+function CourseCard({ course }) {
   const navigate = useNavigate();
-  
+
   return (
     <Card sx={{ minWidth: 300, margin: 5 }}>
       <CardActionArea
         onClick={() => {
-          navigate(`/courses/${props.course._id}`);
+          navigate(`/courses/${course._id}`);
         }}
       >
         <CardMedia
           component="img"
           sx={{ height: 250, maxWidth: 300 }}
-          image={props.course.imageLink}
-          title={props.course.title}
+          image={course.imageLink}
+          title={course.title}
           alt="Course Image"
         />
         <CardContent>
           <Typography variant="h5" align="center">
-            {props.course.title}
+            {course.title}
           </Typography>
         </CardContent>
       </CardActionArea>
