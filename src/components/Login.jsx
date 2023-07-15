@@ -5,7 +5,6 @@ import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import React from "react";
-import IconButton from "@mui/material/IconButton";
 import MuiAlert from "@mui/material/Alert";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -29,19 +28,6 @@ function Login() {
     setOpen(false);
   };
 
-  const action = (
-    <React.Fragment>
-      <Button color="secondary" size="small" onClick={handleClose}>
-        UNDO
-      </Button>
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleClose}
-      ></IconButton>
-    </React.Fragment>
-  );
   return (
     <center>
       <div>
@@ -121,7 +107,7 @@ function Login() {
             >
               Log in
             </Button>
-            <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+            <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
               <Alert
                 onClose={handleClose}
                 severity="error"
