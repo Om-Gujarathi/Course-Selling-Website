@@ -81,7 +81,6 @@ function AddCourse() {
                   },
                 }
               );
-              console.log(res);
             }}
           >
             Add course

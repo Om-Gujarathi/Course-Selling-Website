@@ -16,7 +16,6 @@ function EditCourse() {
         },
       })
       .then((res) => {
-        console.log(res.data.course);
         setCourse(res.data.course);
       });
   }, []);
