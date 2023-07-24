@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Typography, TextField, Button } from "@mui/material";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 function EditCourse() {
   const { courseId } = useParams();
   const [course, setCourse] = useState(null);
@@ -37,7 +37,7 @@ function EditCourse() {
     <div
       style={{
         display: "flex",
-        justifyContent : "center"
+        justifyContent: "center",
       }}
     >
       <CourseCard course={course}></CourseCard>
@@ -51,6 +51,7 @@ function UpdateCard({ course, setCourse }) {
   const [description, setDescription] = useState(course.description);
   const [image, setImage] = useState(course.imageLink);
   const [price, setPrice] = useState(course.price);
+  const navigate = useNavigate();
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
@@ -101,37 +102,64 @@ function UpdateCard({ course, setCourse }) {
             label="Price"
             variant="outlined"
           />
-
-          <Button
-            variant="contained"
-            onClick={async () => {
-              axios.put(
-                "http://localhost:3000/admin/courses/" + course._id,
-                {
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-evenly",
+            }}
+          >
+            <Button
+              // style={{
+              //   marginRight : 10
+              // }}
+              variant="contained"
+              onClick={async () => {
+                axios.put(
+                  "http://localhost:3000/admin/courses/" + course._id,
+                  {
+                    title: title,
+                    description: description,
+                    imageLink: image,
+                    published: true,
+                    price,
+                  },
+                  {
+                    headers: {
+                      Authorization: "Bearer " + localStorage.getItem("token"),
+                    },
+                  }
+                );
+                let updatedCourse = {
+                  _id: course._id,
                   title: title,
                   description: description,
                   imageLink: image,
-                  published: true,
                   price,
-                },
-                {
-                  headers: {
-                    Authorization: "Bearer " + localStorage.getItem("token"),
-                  },
-                }
-              );
-              let updatedCourse = {
-                _id: course._id,
-                title: title,
-                description: description,
-                imageLink: image,
-                price,
-              };
-              setCourse(updatedCourse);
-            }}
-          >
-            Update course
-          </Button>
+                };
+                setCourse(updatedCourse);
+              }}
+            >
+              Update course
+            </Button>
+
+            <Button
+              variant="contained"
+              color="error"
+              onClick={async () => {
+                await axios
+                  .delete("http://localhost:3000/admin/courses/" + course._id, {
+                    headers: {
+                      Authorization: "Bearer " + localStorage.getItem("token"),
+                    },
+                  })
+                  .then(() => {
+                    navigate("/courses");
+                  });
+              }}
+            >
+              Delete course
+            </Button>
+          </div>
         </div>
       </Card>
     </div>
