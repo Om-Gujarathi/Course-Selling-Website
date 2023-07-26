@@ -6,6 +6,7 @@ import axios from "axios";
 import CircularProgress from "@mui/material/CircularProgress";
 import userState from "../recoil/UserState";
 import { useRecoilState } from "recoil";
+import API_END_POINT from "../../utility";
 
 function Appbar() {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ function Appbar() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/admin/me", {
+      .get(`${API_END_POINT}/admin/me`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

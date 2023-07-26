@@ -4,13 +4,15 @@ import { useParams } from "react-router-dom";
 import { Typography, TextField, Button } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import API_END_POINT from "../../utility";
+
 function EditCourse() {
   const { courseId } = useParams();
   const [course, setCourse] = useState(null);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/admin/courses/${courseId}`, {
+      .get(`${API_END_POINT}/admin/courses/${courseId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -115,7 +117,7 @@ function UpdateCard({ course, setCourse }) {
               variant="contained"
               onClick={async () => {
                 axios.put(
-                  "http://localhost:3000/admin/courses/" + course._id,
+                  `${API_END_POINT}/admin/courses/` + course._id,
                   {
                     title: title,
                     description: description,
@@ -147,7 +149,7 @@ function UpdateCard({ course, setCourse }) {
               color="error"
               onClick={async () => {
                 await axios
-                  .delete("http://localhost:3000/admin/courses/" + course._id, {
+                  .delete(`${API_END_POINT}/admin/courses/` + course._id, {
                     headers: {
                       Authorization: "Bearer " + localStorage.getItem("token"),
                     },

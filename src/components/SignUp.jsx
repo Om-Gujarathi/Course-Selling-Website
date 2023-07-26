@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API_END_POINT from "../../utility";
 
 function SignUp() {
   const [email, setEmail] = useState("");
@@ -61,7 +62,7 @@ function SignUp() {
                 maxWidth: 100,
               }}
               onClick={() => {
-                fetch("http://localhost:3000/admin/signup", {
+                fetch(`${API_END_POINT}/admin/signup`, {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",

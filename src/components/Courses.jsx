@@ -6,12 +6,13 @@ import { CardActionArea } from "@mui/material";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { useNavigate } from "react-router-dom";
+import API_END_POINT from "../../utility";
 
 function Courses() {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/admin/courses", {
+    fetch(`${API_END_POINT}/admin/courses`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

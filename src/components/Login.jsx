@@ -9,6 +9,7 @@ import MuiAlert from "@mui/material/Alert";
 import { useSetRecoilState } from "recoil";
 import userState from "../recoil/UserState";
 import { useNavigate } from "react-router-dom";
+import API_END_POINT from "../../utility";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -84,7 +85,7 @@ function Login() {
                 maxWidth: 100,
               }}
               onClick={() => {
-                fetch("http://localhost:3000/admin/login", {
+                fetch(`${API_END_POINT}/admin/login`, {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",

@@ -3,6 +3,7 @@ import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
+import API_END_POINT from "../../utility";
 
 function AddCourse() {
   const [title, setTitle] = useState("");
@@ -67,7 +68,7 @@ function AddCourse() {
             variant="contained"
             onClick={async () => {
               const res = await axios.post(
-                "http://localhost:3000/admin/courses",
+                `${API_END_POINT}/admin/courses`,
                 {
                   title,
                   description,
